@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,12 @@ use Illuminate\Support\Facades\Storage;
 Route::get('/', function () {
     return redirect(route('login'));
 })->name('root');
+
+// Route::get('/admin123', function ()
+// {
+// 	$pass = Hash::make('admin123');
+// 	echo $pass;
+// });
 
 Route::get('/tes', function() {
     return view('tes');

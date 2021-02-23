@@ -127,14 +127,14 @@ desired effect
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="{{asset('storage/'.Auth::user()->avatar)}}" class="user-image" alt="User Image">
+              <img src="{{ is_null(Auth::user()->avatar) ? asset('user/default_user.png') : asset('storage/'.Auth::user()->avatar) }}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">{{Auth::user()->name}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="{{asset('storage/'.Auth::user()->avatar)}}" class="img-circle" alt="User Image">
+                <img src="{{ is_null(Auth::user()->avatar) ? asset('user/default_user.png') : asset('storage/'.Auth::user()->avatar) }}" class="img-circle" alt="User Image">
 
                 <p>
                   {{Auth::user()->name}} - {{Auth::user()->role->name}}
@@ -176,7 +176,7 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{asset('storage/'.Auth::user()->avatar)}}" class="img-circle" alt="User Image">
+          <img src="{{ is_null(Auth::user()->avatar) ? asset('user/default_user.png') : asset('storage/'.Auth::user()->avatar) }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>{{Auth::user()->name}}</p>

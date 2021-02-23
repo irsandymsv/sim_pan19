@@ -192,7 +192,7 @@
                           @else
                           <a href="{{$val}}" target="_blank" title="{{substr(strstr($val, 'suratKeluar/'), 12)}}">
                           @endif
-                            <img src="{{asset('storage/default_file.jpg')}}" class="default_file"><br>
+                            <img src="{{asset('default_file.jpg')}}" class="default_file"><br>
                             <span>file {{$no+=1}}</span>
                           </a>
                         </div>

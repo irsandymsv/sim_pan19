@@ -100,8 +100,8 @@
 	              <ul class="users-list clearfix">
 	              	@foreach($new_users as $item)
 	              		<li>
-		                  <img src="{{asset('storage/'.$item->avatar)}}" alt="User Image">
-		                  <a class="users-list-name" href="#">{{$item->name}}</a>
+		                  <img src="{{ is_null(Auth::user()->avatar) ? asset('user/default_user.png') : asset('storage/'.Auth::user()->avatar) }}" alt="User Image">
+		                  <a class="users-list-name" href="{{ route('admin.user.show', $item->id) }}">{{$item->name}}</a>
 		                  <span class="users-list-date">{{Carbon\Carbon::parse($item->created_at)->locale('id_ID')->isoFormat('D MMM ')}}</span>
 		                </li>
 	              	@endforeach

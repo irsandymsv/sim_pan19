@@ -17,7 +17,7 @@
 					<div class="box box-warning">
 						<div class="box-body box-profile">
 							@if($user->avatar == null)
-								<img class="profile-user-img img-responsive img-circle" id="img_avatar" src="{{asset('storage/user/default_user.png')}}" alt="User profile picture" style="height: 120px; width: 120px; border-radius: 50%; object-fit: cover;">
+								<img class="profile-user-img img-responsive img-circle" id="img_avatar" src="{{ asset('user/default_user.png') }}" alt="User profile picture" style="height: 120px; width: 120px; border-radius: 50%; object-fit: cover;">
 							@else
 								<img class="profile-user-img img-responsive img-circle" id="img_avatar" src="{{asset('storage/'.$user->avatar)}}" alt="User profile picture">
 							@endif

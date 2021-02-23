@@ -136,9 +136,9 @@
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
-            <label>
+            {{-- <label>
               <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-            </label>
+            </label> --}}
           </div>
         </div>
         <!-- /.col -->
@@ -151,7 +151,7 @@
 
     <!-- /.social-auth-links (WAS HERE)-->
 
-    <a href="#">I forgot my password</a><br>
+    {{-- <a href="#">I forgot my password</a><br> --}}
     {{-- <a href="register.html" class="text-center">Register a new membership</a> --}}
 
   </div>

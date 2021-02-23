@@ -26,32 +26,35 @@ class LaporanController extends Controller
     	$oldestSK = SuratKeluar::orderBy("created_at", "asc")->first();
     	$newestSM = SuratMasuk::orderBy("created_at", "desc")->first();
     	$newestSK = SuratKeluar::orderBy("created_at", "desc")->first();
-
-    	if ($oldestSK->created_at->year > $oldestSM->created_at->year) {
-    		$old = $oldestSM->created_at->year;
-    	}
-    	elseif ($oldestSK->created_at->year < $oldestSM->created_at->year) {
-    		$old = $oldestSK->created_at->year;
-    	}
-    	else{
-    		$old = $oldestSK->created_at->year;
-    	}
-
-    	if ($newestSM->created_at->year > $newestSK->created_at->year) {
-    		$new = $newestSM->created_at->year;
-    	}
-    	elseif ($newestSM->created_at->year < $newestSK->created_at->year) {
-    		$new = $newestSK->created_at->year;
-    	}
-    	else{
-    		$new = $newestSM->created_at->year;
-    	}
-
     	$tahun = [];
-    	for ($i=$old; $i <= $new; $i++) { 
-    		$tahun[] = $old;
-    		$old++;
+
+    	if (!is_null($oldestSK) && !is_null($oldestSM) && !is_null($newestSM) && !is_null($newestSK)) {
+    		if ($oldestSK->created_at->year > $oldestSM->created_at->year) {
+    			$old = $oldestSM->created_at->year;
+    		}
+    		elseif ($oldestSK->created_at->year < $oldestSM->created_at->year) {
+    			$old = $oldestSK->created_at->year;
+    		}
+    		else{
+    			$old = $oldestSK->created_at->year;
+    		}
+    	
+    		if ($newestSM->created_at->year > $newestSK->created_at->year) {
+    			$new = $newestSM->created_at->year;
+    		}
+    		elseif ($newestSM->created_at->year < $newestSK->created_at->year) {
+    			$new = $newestSK->created_at->year;
+    		}
+    		else{
+    			$new = $newestSM->created_at->year;
+    		}
+
+    		for ($i=$old; $i <= $new; $i++) { 
+    			$tahun[] = $old;
+    			$old++;
+    		}
     	}
+    	
 
     	// dd($tahun);
     	return view('laporan.index', [

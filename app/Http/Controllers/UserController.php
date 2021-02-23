@@ -65,7 +65,7 @@ class UserController extends Controller
             'role_id' => $data['role_id'],
             'phone_number' => $data['phone_number'],
             'gender' => $data['gender'],
-            'avatar' => "user/default_user.png"
+            // 'avatar' => "user/default_user.png"
             // 'divisi_id' => $data['divisi_id']
         ]);
 

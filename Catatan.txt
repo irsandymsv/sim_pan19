@@ -1,0 +1,9 @@
+Import file dummy.sql ke database
+
+Kredensial User dummy
+
+No. 	Email 		| Password	| Role		|
+---------------------------------------------------------
+1. admin1@mail.com 	| admin123	| administrator	|
+2. operator1@mail.com 	| operator123	| operator	|
+3. manajer123@mail.com 	| manajer123	| manajer	|
