@@ -167,10 +167,10 @@
           @foreach($surat->file_surat as $key => $val)
             <div class="col-xs-4" id="file{{$key}}">
               <a href="{{asset('storage/'.$val)}}" target="_blank" title="{{strstr($val, '/')}}">
-                <img src="{{asset('storage/default_file.jpg')}}" class="default_file"><br>
+                <img src="{{asset('default_file.jpg')}}" class="default_file"><br>
                 <span id="{{$val}}">{{substr(strstr($val, '/'), 0, 20)}}...</span><br>
               </a>
-              <button class="btn btn-danger" name="del_oldfFile" type="button" id="{{$key}}">Hapus</button>
+              <button class="btn btn-danger" name="del_oldfFile" title="Hapus" type="button" id="{{$key}}"><i class="fa fa-trash-o"></i></button>
               <input type="hidden" name="hapus_file[]" id="hapus_file{{$key}}" value="">
             </div>
           @endforeach

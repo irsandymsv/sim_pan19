@@ -93,7 +93,13 @@
             @endif
             
             @if(Auth::user()->role->name == "operator")
-    				  <button name="btnDel" id="{{$item->id}}" title="Hapus" class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash-o"></i></button>
+    				  <button name="btnDel" title="Hapus" 
+                class="btn btn-danger btn-flat" 
+                data-toggle="modal" data-target="#modal-delete" 
+                link="{{$tipe == "surat masuk" ? route('operator.surat-masuk.destroy', $item->id) : route('operator.surat-keluar.destroy', $item->id)}}" 
+              >
+                <i class="fa fa-trash-o"></i>
+              </button>
             @endif
     			</td>
     		</tr>
@@ -160,20 +166,41 @@
 		$(function () {
 
       @if($tipe == "surat masuk")
-        var kolom_filter = [1,2,3,4,5,6,7];
+        var kolom_filter = [2,4,6,7];
+        $(`<tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>`).clone(true).appendTo( '#table1 thead' );
       @else 
-        var kolom_filter = [1,2,3,4,5,6];
+        var kolom_filter = [2,3,5,6];
+        $(`<tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>`).clone(true).appendTo( '#table1 thead' );
       @endif
 
+      // $('#table1 thead tr').clone(true).appendTo( '#table1 thead' );
       $.fn.dataTable.moment('D MMMM Y', 'id');
-      $('#table1 thead tr').clone(true).appendTo( '#table1 thead' );
 			$('#table1').DataTable({
 				order: [],
         orderCellsTop: true,
         initComplete: function () {
           this.api().columns(kolom_filter).every( function () {
               var column = this;
-              var select = $('<select><option value=""></option></select>')
+              var select = $('<select><option value="">-Semua-</option></select>')
                   .appendTo( $("#table1 thead tr:eq(1) th").eq(column.index()).empty() )
                   .on( 'change', function () {
                       var val = $.fn.dataTable.util.escapeRegex(
@@ -194,8 +221,8 @@
 		})
 
 		$("button[name='btnDel']").click(function() {
-			var id = $(this).attr('id');
-			// console.log("id= "+id);
+			var alamat = $(this).attr('link');
+			// console.log("alamt= "+alamat);
 
 			$('div.modal-footer').off().on('click', '#hapusBtn', function(event) {
 				$.ajaxSetup({
@@ -206,10 +233,12 @@
 
 				$.ajax({
           @if($tipe == "surat masuk")
-					 url: '/162410101094/myWebsite/public/operator/surat-masuk/'+id,
+					 // url: '/162410101094/myWebsite/public/operator/surat-masuk/'+id,
           @else
-            url: '/162410101094/myWebsite/public/operator/surat-keluar/'+id,
+            // url: '/162410101094/myWebsite/public/operator/surat-keluar/'+id,
           @endif
+
+          url: alamat,
 					type: 'POST',
 					data: {_method: 'DELETE'},
 				})

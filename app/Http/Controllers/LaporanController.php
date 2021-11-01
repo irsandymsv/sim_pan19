@@ -20,46 +20,36 @@ class LaporanController extends Controller
 
     public function index()
     {
-    	$suratMasuk = SuratMasuk::all();
-    	$suratKeluar = SuratMasuk::all();
-    	$oldestSM = SuratMasuk::orderBy("created_at", "asc")->first();
-    	$oldestSK = SuratKeluar::orderBy("created_at", "asc")->first();
-    	$newestSM = SuratMasuk::orderBy("created_at", "desc")->first();
-    	$newestSK = SuratKeluar::orderBy("created_at", "desc")->first();
-    	$tahun = [];
+      $tahun = [];
+      $old = 0;
+      $new = 0;
 
-    	if (!is_null($oldestSK) && !is_null($oldestSM) && !is_null($newestSM) && !is_null($newestSK)) {
-    		if ($oldestSK->created_at->year > $oldestSM->created_at->year) {
-    			$old = $oldestSM->created_at->year;
-    		}
-    		elseif ($oldestSK->created_at->year < $oldestSM->created_at->year) {
-    			$old = $oldestSK->created_at->year;
-    		}
-    		else{
-    			$old = $oldestSK->created_at->year;
-    		}
+      if (SuratMasuk::exists() && SuratKeluar::exists()) {
+       	$oldestSM = SuratMasuk::orderBy("created_at", "asc")->first();
+         $newestSM = SuratMasuk::orderBy("created_at", "desc")->first(); 
+
+         $oldestSK = SuratKeluar::orderBy("created_at", "asc")->first();
+       	$newestSK = SuratKeluar::orderBy("created_at", "desc")->first();
+
+         $old = min($oldestSM->created_at->year, $oldestSK->created_at->year);
+         $new = max($newestSM->created_at->year, $newestSK->created_at->year); 
+      }
+      elseif(SuratMasuk::exists()){
+         $old = SuratMasuk::orderBy("created_at", "asc")->first()->created_at->year;
+         $new = SuratMasuk::orderBy("created_at", "desc")->first()->created_at->year;
+      }
+      elseif(SuratKeluar::exists()){
+         $old = SuratKeluar::orderBy("created_at", "asc")->first();
+         $new = SuratKeluar::orderBy("created_at", "desc")->first();
+      }
+
+      for ($i=$old; $i <= $new; $i++) { 
+         $tahun[] = $old;
+         $old++;
+      }
     	
-    		if ($newestSM->created_at->year > $newestSK->created_at->year) {
-    			$new = $newestSM->created_at->year;
-    		}
-    		elseif ($newestSM->created_at->year < $newestSK->created_at->year) {
-    			$new = $newestSK->created_at->year;
-    		}
-    		else{
-    			$new = $newestSM->created_at->year;
-    		}
-
-    		for ($i=$old; $i <= $new; $i++) { 
-    			$tahun[] = $old;
-    			$old++;
-    		}
-    	}
-    	
-
     	// dd($tahun);
     	return view('laporan.index', [
-    		'suratkeluar' => $suratKeluar,
-    		'suratMasuk' => $suratMasuk,
     		'tahun' => $tahun
     	]);
     }
